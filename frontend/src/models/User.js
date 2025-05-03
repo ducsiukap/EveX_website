@@ -5,13 +5,15 @@ export default class User {
     #password; 
     #phone;
     #status;
+    #role;
 
-    constructor(name, email, password, phone, status) {
+    constructor(name, email, password, phone, status, role) {
         this.#name = name;
         this.#email = email;
         this.#password = password;
         this.#phone = phone;
         this.#status = status;
+        this.#role = role;
     }
 
     get id() {
@@ -62,13 +64,17 @@ export default class User {
         this.#status = value;
     }
 
+    get role() { return this.#role; }
+    set role(value) { this.#role = value; }
+
     toJSON() {
         return {
             id: this.#id,
             name: this.#name,
             email: this.#email,
             phone: this.#phone,
-            status: this.#status
+            status: this.#status,
+            role: this.#role
         };
     }
 }
