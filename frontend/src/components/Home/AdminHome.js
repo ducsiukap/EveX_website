@@ -7,7 +7,7 @@ function AdminHome() {
         <div className="home-container">
             <h2>🛠️ Trang quản trị hệ thống</h2>
             <div className="home-actions">
-                <Link to="/manage-users" className="home-card">
+                <Link to="/users" className="home-card">
                     <h3>👥 Quản lý người dùng</h3>
                     <p>Kiểm soát tài khoản cá nhân và tổ chức.</p>
                 </Link>

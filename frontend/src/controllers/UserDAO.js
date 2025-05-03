@@ -35,4 +35,32 @@ const addUser = (u) => {
     return true;
 };
 
-export { checkLogin, addUser };
+const updateUser = (u) => {
+    if (users.find(user => user.email === u.email && user.id !== u.id)) return false;
+    for (let i = 0; i < users.length; ++i) {
+        if (users[i].id === u.id) {
+            users[i].name = u.name;
+            users[i].email = u.email;
+            users[i].password = u.password;
+            users[i].phone = u.phone;
+            return true;
+        }
+    }
+    return false;
+}
+
+const searchByName = (key) => {
+    const result = users
+        .filter(user => user.name.toLowerCase().includes(key));
+    return result;
+}
+
+const getUserById = (id) => {
+    try {
+        const uid = Number(id);
+        const result = users.find(user => user.id === uid);
+        return result;
+    } catch (error) { return null; }
+}
+
+export { checkLogin, addUser, updateUser, searchByName, getUserById };

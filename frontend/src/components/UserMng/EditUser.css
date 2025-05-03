@@ -1,0 +1,66 @@
+.edit-user-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  
+  .edit-user-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  
+  .edit-user-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .edit-user-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-user-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  
+  .edit-user-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .edit-user-input:read-only {
+    background-color: #f5f5f5;
+    color: #777;
+  }
+  
+  .edit-user-error {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  
+  .edit-user-button {
+    padding: 10px 16px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .edit-user-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  

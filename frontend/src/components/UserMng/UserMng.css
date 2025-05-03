@@ -1,0 +1,73 @@
+.user-mng {
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+}
+
+.user-mng-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.user-mng-search {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.user-mng-input {
+    padding: 0.5rem;
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.user-mng-button {
+    padding: 0.5rem 1rem;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.user-mng-button:hover {
+    background-color: #115293;
+}
+
+.user-mng-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-mng-table th,
+.user-mng-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.user-mng-row:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.user-mng-ban-button {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.user-mng-ban-button.ban {
+    background-color: #e53935;
+}
+
+.user-mng-ban-button.unlock {
+    background-color: #43a047;
+}
+
+.user-mng-ban-button:hover {
+    opacity: 0.9;
+}

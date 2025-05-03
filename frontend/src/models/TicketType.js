@@ -62,4 +62,16 @@ class TicketType {
         this.#tickets = value;
     }
 
+    toJSON() {
+        return {
+            id: this.#id,
+            name: this.#name,
+            price: this.#price,
+            quantity: this.#quantity,
+            soldAmount: this.#soldAmount,
+            tickets: this.#tickets
+        };
+    }
 }
+
+export default TicketType;

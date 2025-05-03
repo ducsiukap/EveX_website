@@ -1,12 +1,16 @@
 
 // import './App.css';
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import Login from './components/Login/Login';
 import SignUp from './components/Login/SignUp';
 import Home from './components/Home/Home';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Topbar from './components/topbar/Topbar';
+import AccountMng from './components/AccountMng/AccountMng';
+import ChangePW from './components/AccountMng/ChangePW';
+import UserMng from './components/UserMng/UserMng';
+import EditUser from './components/UserMng/EditUser';
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -27,15 +31,27 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Topbar user={user} onLogout={setUser}/>
+        <Topbar user={user} onLogout={setUser} />
         <Routes>
           <Route path='*' element={<Login isLoggedIn={isLoggedIn} onSubmit={setUser} />} />
           <Route path='/login' element={<Login isLoggedIn={isLoggedIn} onSubmit={setUser} />} />
-          {/* <Route path='/home' element={"Hihi"} /> */}
           <Route path='/signup' element={<SignUp isLoggedIn={isLoggedIn} onSubmit={setUser} />} />
-          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}>
-            <Route path='/home' element={<Home user={user}/>} />
+
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} user={user}/>}>
+            <Route path='/home' element={<Home user={user} />} />
+            {user?.role !== 'A' && 
+            <Route path='/profile' element={<Outlet />}>
+              <Route index element={<AccountMng user={user} onSave={setUser} />} />
+              <Route path='changepw' element={<ChangePW user={user} onSave={setUser} />} />
+            </Route>}
+            {user?.role === 'A' &&
+              <Route path='/users' element={<Outlet />} >
+                <Route index element={<UserMng admin={user} />} />
+                <Route path=':uid' element={<EditUser />} />
+              </Route>
+            }
           </Route>
+
         </Routes>
       </Router>
     </div>

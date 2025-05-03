@@ -31,6 +31,14 @@ class Ticket {
     set checkedAt(value) {
         this.#checkedAt = value;
     }
+
+    toJSON() {
+        return {
+            id: this.#id,
+            code: this.#code,
+            checkedAt: this.#checkedAt
+        };
+    }
 }
 
 export default Ticket;
