@@ -94,7 +94,7 @@ const events = [
         id: 201,
         sT: "2025-06-15T01:00:00Z",
         OrganizationUserId: 6
-    }, 
+    },
     // edit
     {
         id: 202,
@@ -294,5 +294,25 @@ const checkTicket = (code, eventId) => {
     return { valid: true, status: 'Checkin thành công' };
 }
 
-export { findTicketByTicketTypeId, findTicketByOrderId, joinTicketTypeOnTicketId, checkTicket };
+/*
+id: next_id,
+                code: genCode(item.id),
+                checkedAt: Math.random() > 0.2 ? event_date : '',
+                price: item.price,
+                TicketTypeId: item.id,
+                OrderId: -1
+*/
+const addTicket = ({ price, TicketTypeId, OrderId, eventId }) => {
+    const query = {
+        id: next_id,
+        code: genCode(eventId),
+        price: price,
+        TicketTypeId: TicketTypeId,
+        OrderId: OrderId
+    }
+    ++next_id;
+    tickets.push(query);
+}
+
+export { findTicketByTicketTypeId, findTicketByOrderId, joinTicketTypeOnTicketId, checkTicket, addTicket };
 

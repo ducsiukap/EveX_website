@@ -1,0 +1,132 @@
+.container {
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.searchForm {
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+.searchLabel {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 1rem;
+    color: #94a3b8;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 0.75rem;
+    padding-left: 2.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+}
+
+.searchButton {
+    padding: 0.75rem 1.5rem;
+    background: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.searchButton:hover {
+    background: #246b44;
+}
+
+.eventGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    margin-top: 2rem;
+}
+
+.eventCard {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.eventCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.eventTitle {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2e8b57;
+    margin-bottom: 1rem;
+}
+
+.divider {
+    height: 1px;
+    background: #e2e8f0;
+    margin: 1rem 0;
+}
+
+.eventInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: #64748b;
+}
+
+.infoIcon {
+    color: #2e8b57;
+    width: 16px;
+}
+
+.emptyMessage {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+}
+
+.loadingState {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .searchForm {
+        flex-direction: column;
+        margin: 1rem;
+    }
+
+    .eventGrid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}

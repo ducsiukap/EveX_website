@@ -111,15 +111,31 @@ const vouchers = [
     }
 ];
 
-const findAllVoucher = () => {
-    const result = vouchers
-        .filter(vc => vc.status !== 'deleted')
-        .map((vc) => {
-            const v = new Voucher(vc.code, vc.description, vc.type, vc.value, vc.quantity, vc.startAt, vc.endAt, vc.status);
-            v.id = vc.id;
-            return v;
-        })
-    return result;
+const findAllVoucher = (usable) => {
+    if (!usable) {
+        const result = vouchers
+            .filter(vc => vc.status !== 'deleted')
+            .map((vc) => {
+                const v = new Voucher(vc.code, vc.description, vc.type, vc.value, vc.quantity, vc.startAt, vc.endAt, vc.status);
+                v.id = vc.id;
+                return v;
+            })
+        return result;
+    } else {
+        const now = new Date()
+        const result = vouchers
+            .filter(vc => {
+                const startTime = new Date(vc.startAt);
+                const endTime = new Date(vc.endAt);
+                return vc.quantity > 0 && vc.status !== 'deleted' && now >= startTime && now <= endTime
+            })
+            .map((vc) => {
+                const v = new Voucher(vc.code, vc.description, vc.type, vc.value, vc.quantity, vc.startAt, vc.endAt, vc.status);
+                v.id = vc.id;
+                return v;
+            })
+        return result;
+    }
 }
 
 const deleteVoucher = (voucher) => {
@@ -153,4 +169,17 @@ const getVoucherById = (id) => {
     return null;
 }
 
-export { findAllVoucher, deleteVoucher, addVoucher, getVoucherById };
+const takeVoucher = ({ id }) => {
+    const found = vouchers.find(item => item.id === id);
+
+    if (!found || found.quantity < 1) return false;
+    const now = new Date();
+    const startDate = new Date(found.startAt);
+    const endDate = new Date(found.endAt);
+
+    if (now < startDate || now > endDate) return false;
+    found.quantity -= 1;
+    return true;
+}
+
+export { findAllVoucher, deleteVoucher, addVoucher, getVoucherById, takeVoucher };

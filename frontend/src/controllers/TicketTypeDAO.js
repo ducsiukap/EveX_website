@@ -1,5 +1,5 @@
 import TicketType from "../models/TicketType";
-import { findTicketByTicketTypeId } from "./TicketDAO";
+import { findTicketByTicketTypeId, addTicket } from "./TicketDAO";
 import { findCEById } from "./CommunityEventDAO";
 const ticketTypes = [
     {
@@ -146,9 +146,23 @@ const findTicketTypeById = (id) => {
 
 const joinCommunityEventOnTicketTypeId = ticketTypeId => {
     const found = ticketTypes.find(item => item.id === ticketTypeId);
-    const result = found ? findCEById(found.CommunityEventId) : null;
+    const result = found ? findCEById(found.CommunityEventId, false, true) : null;
     // console.log(result);
     return result;
 }
 
-export { addTicketType, findTicketTypeByEventId, deleteTicketTypeByEventId, updateTicketType, findTicketTypeById, joinCommunityEventOnTicketTypeId };
+const payedTicketType = ({ id, amount, OrderId, eventId }) => {
+    const found = ticketTypes.find(item => item.id === id);
+
+    if (!found) return false;
+    if (found.soldAmount + amount > found.quantity) return false;
+
+
+    for (let i = 0; i < amount; ++i)
+        addTicket({ price: found.price, TicketTypeId: id, OrderId: OrderId, eventId: eventId });
+
+    found.soldAmount += amount;
+    return true;
+}
+
+export { addTicketType, findTicketTypeByEventId, deleteTicketTypeByEventId, updateTicketType, findTicketTypeById, joinCommunityEventOnTicketTypeId, payedTicketType };

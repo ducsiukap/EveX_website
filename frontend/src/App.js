@@ -34,6 +34,9 @@ import SelectEvent from './components/Verification/SelectEvent';
 import CheckTicket from './components/Verification/CheckTicket';
 import GeneralStatistic from './components/Statistic/GerneralStatistic';
 import DetailEventStatistic from './components/Statistic/DetailEventStatistic';
+import FindEvent from './components/BookingEvent/FindEvent';
+import DetailEvent from './components/BookingEvent/DetailEvent';
+import Paying from './components/BookingEvent/Paying';
 
 
 function App() {
@@ -108,6 +111,15 @@ function App() {
               <Route path='orders' element={<Outlet />}>
                 <Route index element={<FindOrder user={user} />} />
                 <Route path=':id' element={<ViewOrder user={user} />} />
+              </Route>
+            }
+            {user?.role === 'P' &&
+              <Route path='explore' element={<Outlet />} >
+                <Route index element={<FindEvent user={user} />} />
+                <Route path=':id' element={<Outlet />}>
+                  <Route index element={<DetailEvent user={user} />} />
+                  <Route path='paying' element={<Paying user={user} />} />
+                </Route>
               </Route>
             }
 

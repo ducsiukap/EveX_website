@@ -14,7 +14,9 @@ function FindOrder({ user }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const data = findOrderByName('', user.id);
+        const result = findOrderByName('', user.id);
+        const data = result.sort((o1, o2) => new Date(o2.order.orderTime) - new Date(o1.order.orderTime))
+        console.log(data);
         setOrders(data);
     }, [user.id])
 

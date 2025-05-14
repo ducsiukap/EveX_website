@@ -1,0 +1,166 @@
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.backButton {
+    /* padding: 0.75rem 0; */
+    width: fit-content;
+    /* background: ; */
+    color: #2e8b57;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+}
+
+.backButton:hover {
+    text-decoration: underline;
+}
+
+.container {
+    display: flex;
+    gap: 2rem;
+}
+
+.container > div:first-child {
+    flex: 1;
+}
+
+.ticketForm {
+    width: 400px;
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    align-self: flex-start;
+}
+
+.ticketCard {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.ticketHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.ticketName {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.ticketPrice {
+    color: #2e8b57;
+    font-weight: 600;
+}
+
+.ticketDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: #64748b;
+}
+
+.quantityInput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.quantityInput > div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantityInput input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.quantityInput input:focus {
+    outline: none;
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+}
+
+.error {
+    color: #ef4444;
+    font-size: 0.875rem;
+}
+
+
+.selectVoucher {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1e293b;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.selectVoucher:focus {
+  border-color: #2e8b57; /* xanh nhạt */
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.selectVoucher option {
+  padding: 10px;
+  font-size: 14px;
+}
+
+
+.submitButton {
+    width: 100%;
+    padding: 0.75rem;
+    background: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 1rem;
+}
+
+.submitButton:hover {
+    background: #246b44;
+}
+
+.loadingState {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .ticketForm {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        padding: 1rem;
+    }
+}

@@ -118,7 +118,7 @@ class CommunityEvent {
             status: this.#status,
             isFree: this.#isFree,
             createdAt: this.#createdAt,
-            ticketTypes: this.#ticketTypes,
+            ticketTypes: this.#ticketTypes.map(item => item.toJSON()),
             org: this.#org.toJSON()
         };
     }

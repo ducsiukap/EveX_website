@@ -1,8 +1,8 @@
 import Order from '../models/Order';
 import { findTicketByOrderId, joinTicketTypeOnTicketId } from './TicketDAO';
-import { getVoucherById } from './VoucherDAO';
+import { getVoucherById, takeVoucher } from './VoucherDAO';
 import { getUserById } from './UserDAO';
-import { joinCommunityEventOnTicketTypeId } from './TicketTypeDAO';
+import { joinCommunityEventOnTicketTypeId, payedTicketType } from './TicketTypeDAO';
 //personal: 1 (1, 2, 7, 10), 2, 3(3), 4(4), 5(5), 13(6), 14(8), 16(9)
 const orders = [
     {
@@ -66,6 +66,8 @@ const orders = [
         voucherId: 2 // GIAM30K
     }
 ];
+
+let next_id = 11;
 
 const findUserOrder = (userId) => {
     const uid = Number(userId);
@@ -161,5 +163,34 @@ const getOrderById = (id) => {
 
     return { order: resultOrder, event: event };
 }
+/*
+{
+        id: 10,
+        orderTime: "2025-05-28T16:45:00Z",
+        userID: 1,
+        voucherId: 2 // GIAM30K
+    }
+*/
+const addOrder = (data) => {
+    const { body } = data;
+    // console.log(body);
+    const query = { id: next_id, userID: body.order.userID, orderTime: (new Date().toISOString()) };
 
-export { findOrderByName, getOrderById };
+    if (!body.order.voucherId || takeVoucher({ id: body.order.voucherId })) {
+        query.voucherId = body.order.voucherId;
+    } else return -1;
+
+    body.ticketTypes.forEach((item) => {
+        if (!payedTicketType({ id: item.id, amount: item.amount, OrderId: query.id, eventId: data.eventId }))
+            return -2;
+        // rollback
+    })
+
+    orders.push(query);
+    ++next_id;
+
+    // console.log(query);
+    return next_id - 1;
+}
+
+export { findOrderByName, getOrderById, addOrder };

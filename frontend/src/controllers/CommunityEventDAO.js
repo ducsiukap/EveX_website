@@ -223,10 +223,11 @@ const events = [
 
 let quantity = events.length;
 
-const findCEById = (eid, toCheck) => {
+const findCEById = (eid, toCheck, notStatus) => {
     const event_id = Number(eid);
     if (isNaN(event_id)) return null;
-    if (!toCheck) {
+
+    if (notStatus) {
         const result = events.find((e) => (e.id === event_id));
         if (!result) return null;
         const event = new CommunityEvent(
@@ -244,28 +245,46 @@ const findCEById = (eid, toCheck) => {
         event.id = result.id;
         return event;
     } else {
-        const now = new Date();
-        const result = events.find((e) => {
-            const eventStartDate = new Date(e.sT);
+        if (!toCheck) {
+            const result = events.find((e) => (e.id === event_id));
+            if (!result || result.status === 'hide') return null;
+            const event = new CommunityEvent(
+                result.title,
+                result.description,
+                result.location,
+                result.sT,
+                result.eT,
+                result.status,
+                result.isFree,
+                result.createdAt,
+                findTicketTypeByEventId(result.id),
+                getUserById(result.OrganizationUserId)
+            );
+            event.id = result.id;
+            return event;
+        } else {
+            const result = events.find((e) => e.id === event_id);
+            if (!result || result.status !== 'public' || result.isFree === 1) return null;
+            const now = new Date();
+            const eventStartDate = new Date(result.sT);
+            const eventEndDate = new Date(result.eT);
             eventStartDate.setHours(0, 0, 0, 0);
-            const eventEndDate = new Date(e.eT);
-            return e.id === event_id && eventStartDate <= now && eventEndDate >= now;
-        });
-        if (!result) return null;
-        const event = new CommunityEvent(
-            result.title,
-            result.description,
-            result.location,
-            result.sT,
-            result.eT,
-            result.status,
-            result.isFree,
-            result.createdAt,
-            findTicketTypeByEventId(result.id),
-            getUserById(result.OrganizationUserId)
-        );
-        event.id = result.id;
-        return event;
+            if (eventStartDate >= now || eventEndDate < now) return null;
+            const event = new CommunityEvent(
+                result.title,
+                result.description,
+                result.location,
+                result.sT,
+                result.eT,
+                result.status,
+                result.isFree,
+                result.createdAt,
+                findTicketTypeByEventId(result.id),
+                getUserById(result.OrganizationUserId)
+            );
+            event.id = result.id;
+            return event;
+        }
     }
 }
 
@@ -311,7 +330,7 @@ const findCEbyUserId = (id, toCheck) => {
 
     if (!toCheck) {
         const result = events
-            .filter(item => item.OrganizationUserId === uid)
+            .filter(item => item.OrganizationUserId === uid && item.status !== 'hide')
             .map(item => {
                 const event = new CommunityEvent(
                     item.title,
@@ -338,7 +357,7 @@ const findCEbyUserId = (id, toCheck) => {
                 const eventEndDate = new Date(item.eT);
                 eventStartDate.setHours(0, 0, 0, 0);
 
-                return (item.OrganizationUserId === uid && eventStartDate <= now && eventEndDate >= now);
+                return (item.OrganizationUserId === uid && item.status === 'public' && item.isFree === 0 && eventStartDate <= now && eventEndDate >= now);
             })
             .map(item => {
                 const event = new CommunityEvent(
@@ -364,12 +383,12 @@ const findCEbyUserId = (id, toCheck) => {
 const normalizeText = (str) =>
     str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const findCEByName = (key, userId) => {
+
     if (userId) {
         const uid = Number(userId);
         if (isNaN(uid)) return [];
-
         const result = events
-            .filter(item => item.OrganizationUserId === uid && normalizeText(item.title).includes(normalizeText(key)))
+            .filter(item => item.OrganizationUserId === uid && item.status !== 'hide' && normalizeText(item.title).includes(normalizeText(key)))
             .map(item => {
                 const event = new CommunityEvent(
                     item.title,
@@ -388,7 +407,25 @@ const findCEByName = (key, userId) => {
             });
         return result;
     } else {
-        return [];
+        const result = events
+            .filter(item => item.status === 'public' && normalizeText(item.title).includes(normalizeText(key)))
+            .map(item => {
+                const event = new CommunityEvent(
+                    item.title,
+                    item.description,
+                    item.location,
+                    item.sT,
+                    item.eT,
+                    item.status,
+                    item.isFree,
+                    item.createdAt,
+                    findTicketTypeByEventId(item.id),
+                    getUserById(item.OrganizationUserId)
+                );
+                event.id = item.id;
+                return event;
+            });
+        return result;
     }
 }
 
@@ -464,7 +501,7 @@ const findAllEventStatistic = (userId) => {
                 checkin += (ticket.checkedAt ? 1 : 0);
                 // console.log(ticket.checkedAt);
             })
-            checkinRate += (checkin / tickets.length) || 0 ;
+            checkinRate += (checkin / tickets.length) || 0;
             bookingRate += tickets.length / ticketType.quantity;
         })
         bookingRate /= ticketTypes.length;
@@ -535,4 +572,28 @@ const findOneEventStatistic = (eventId, userId) => {
     };
 }
 
-export { findCEById, banCE, addCE, findCEbyUserId, findCEByName, updateCE, findAllEventStatistic, findOneEventStatistic };
+const findOnePublicCE = (id) => {
+    const eid = Number(id);
+    if (isNaN(eid)) return null;
+
+    const event = events.find(item => item.id === eid);
+    if (event.status !== 'public') return null;
+
+    const result = new CommunityEvent(
+        event.title,
+        event.description,
+        event.location,
+        event.sT,
+        event.eT,
+        event.status,
+        event.isFree,
+        event.createdAt,
+        findTicketTypeByEventId(event.id),
+        getUserById(event.OrganizationUserId)
+    );
+    result.id = event.id;
+
+    return result;
+}
+
+export { findCEById, banCE, addCE, findCEbyUserId, findCEByName, updateCE, findAllEventStatistic, findOneEventStatistic, findOnePublicCE };
