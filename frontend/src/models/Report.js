@@ -14,7 +14,7 @@ export default class Report {
         this.#response = response;
         this.#user = user;
         this.#event = event;
-    }
+    }q
 
     get id() {
         return this.#id;
@@ -79,8 +79,9 @@ export default class Report {
             reason: this.#reason,
             status: this.#status,
             response: this.#response,
-            user: this.#user,
-            event: this.#event
+            user: this.#user.toJSON(),
+            event: this.#event.toJSON()
         };
     }
 }
+

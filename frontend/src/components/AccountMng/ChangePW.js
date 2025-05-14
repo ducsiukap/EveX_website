@@ -1,71 +1,75 @@
-import { useState } from "react"
-import User from "../../models/User";
-import { updateUser } from '../../controllers/UserDAO.js'
+import { useForm } from "react-hook-form";
+import { updateUser } from '../../controllers/UserDAO.js';
 import './style.css';
 import { useNavigate } from "react-router-dom";
 
 function ChangePW({ user, onSave }) {
-    const [pw, setPw] = useState('');
-    const [nPw, setNPw] = useState('');
-    const [cfpw, setcfpw] = useState('');
-    const [pwErr, setPwErr] = useState('');
-    const [cfErr, setCfErr] = useState('');
-    const [npwErr, setNpwErr] = useState('');
-
+    const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
-    const handleSave = (e) => {
-        e.preventDefault()
-        const u = user;
-        u.password = nPw;
-        if (updateUser(u)) {
-            onSave(u);
+    const handleSave = (data) => {
+        if (data.newPW === data.oldPW) {
+            setError("newPW", { type: "manual", message: "Mật khẩu mới không hợp lệ" });
+            return;
+        }
+
+        if (data.newPW !== data.confirmPW) {
+            setError("confirmPW", { type: "manual", message: "Mật khẩu không trùng khớp" });
+            return;
+        }
+
+        if (data.oldPW !== user.password) {
+            setError("oldPW", { type: "manual", message: "Mật khẩu cũ không đúng!" });
+            return;
+        }
+
+        const updatedUser = { ...user.toJSON(), password: data.newPW };
+        if (updateUser(updatedUser)) {
+            onSave(updatedUser);
             alert('Đổi mật khẩu thành công!');
             navigate('/profile', { replace: true });
         }
-    }
+    };
 
     return (
-        <form className="account-form" onSubmit={(e) => handleSave(e)}>
-            <div className="form-group">
-                <label htmlFor="oldPW">Mật khẩu cũ: </label>
-                <input
-                    type="password"
-                    id="oldPW"
-                    required
-                    onChange={(e) => setPw(e.target.value)}
-                    onBlur={() => setPwErr(pw === user.password ? '' : 'Mật khẩu cũ không đúng!')}
-                />
-                <label className="error">{pwErr}</label>
-            </div>
-            <div className="form-group">
-                <label htmlFor="newPW">Mật khẩu mới: </label>
-                <input
-                    type="password"
-                    id="newPW"
-                    required
-                    onChange={(e) => setNPw(e.target.value)}
-                    onBlur={() => setNpwErr(nPw === pw ? 'Mật khẩu mới không hợp lệ' : '')}
-                />
-                <label className="error">{npwErr}</label>
-            </div>
-            <div className="form-group">
-                <label htmlFor="re-pw">Nhập lại mật khẩu: </label>
-                <input
-                    type="password"
-                    id="re-pw"
-                    required
-                    onChange={(e) => setcfpw(e.target.value)}
-                    onBlur={() => setCfErr(cfpw === nPw ? '' : 'Mật khẩu không trùng khớp')}
-                />
-                <label className="error">{cfErr}</label>
-            </div>
+        <div className="container">
+            <h3 className="page-title">Đổi mật khẩu</h3>
+            <form className="account-form" onSubmit={handleSubmit(handleSave)}>
+                <div className="form-group">
+                    <label htmlFor="oldPW">Mật khẩu cũ: </label>
+                    <input
+                        type="password"
+                        id="oldPW"
+                        {...register("oldPW", { required: "Vui lòng nhập mật khẩu cũ" })}
+                        onBlur={() => clearErrors("oldPW")}
+                    />
+                    {errors.oldPW && <label className="error">{errors.oldPW.message}</label>}
+                </div>
+                <div className="form-group">
+                    <label htmlFor="newPW">Mật khẩu mới: </label>
+                    <input
+                        type="password"
+                        id="newPW"
+                        {...register("newPW", { required: "Vui lòng nhập mật khẩu mới" })}
+                        onBlur={() => clearErrors("newPW")}
+                    />
+                    {errors.newPW && <label className="error">{errors.newPW.message}</label>}
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confirmPW">Nhập lại mật khẩu: </label>
+                    <input
+                        type="password"
+                        id="confirmPW"
+                        {...register("confirmPW", { required: "Vui lòng nhập lại mật khẩu" })}
+                        onBlur={() => clearErrors("confirmPW")}
+                    />
+                    {errors.confirmPW && <label className="error">{errors.confirmPW.message}</label>}
+                </div>
 
-            <button type="submit" className="submit-btn"
-                disabled={cfErr && pw && nPw}>Lưu thay đổi</button>
-        </form>
-
-    )
+                <button type="submit" className="submit-btn">Lưu thay đổi</button>
+            </form>
+        </div>
+    );
 }
 
 export default ChangePW;

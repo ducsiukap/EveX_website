@@ -2,10 +2,12 @@ class Ticket {
     #id;
     #code;
     #checkedAt;
+    #price;
 
-    constructor(code, checkedAt) {
+    constructor(code, checkedAt, price) {
         this.#code = code;
         this.#checkedAt = checkedAt;
+        this.#price = price;
     }
 
     get id() {
@@ -32,11 +34,20 @@ class Ticket {
         this.#checkedAt = value;
     }
 
+    get price() {
+        return this.#price;
+    }
+
+    set price(value) {
+        this.#price = value;
+    }
+
     toJSON() {
         return {
             id: this.#id,
             code: this.#code,
-            checkedAt: this.#checkedAt
+            checkedAt: this.#checkedAt,
+            price: this.#price
         };
     }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Topbar.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function Topbar({ user, onLogout }) {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -9,31 +10,40 @@ function Topbar({ user, onLogout }) {
         setShowDropdown(false);
         onLogout(null);
     }
+
     return (
         <div className="topbar-container">
             <div className="logo">
                 <Link to="/home">EveX</Link>
             </div>
 
-
             <div className="nav-links">
-                <Link to="/home">Trang chủ</Link>
+                <Link to="/home"><i class="fa-solid fa-house"></i>&nbsp;Trang chủ</Link>
                 {user ? (
-                    user.role !== 'A' ? <div
-                        className="user-menu"
-                        onMouseEnter={() => setShowDropdown(true)}
-                        onMouseLeave={() => setTimeout(setShowDropdown(false), 1000)}
-                    >
-                        <span className="user-name">👤 {user.name}</span>
-                        {showDropdown && (
-                            <div className="dropdown-menu">
-                                <Link to="/profile">Trang cá nhân</Link>
-                                <Link to="/login" onClick={handleLogout}>Đăng xuất</Link>
-                            </div>
-                        )}
-                    </div> :
+                    user.role === 'A' ? (
                         <Link to="/login" onClick={handleLogout}>Đăng xuất</Link>
-
+                    ) : (
+                        <div
+                            className={`user-menu ${showDropdown ? 'active' : ''}`}
+                            onMouseEnter={() => setShowDropdown(true)}
+                            onMouseLeave={() => setShowDropdown(false)}
+                        >
+                            <span className="user-name">
+                                <i className="fas fa-user"></i>&nbsp;
+                                {user.name}</span>
+                            <div className={`dropdown-menu ${showDropdown ? 'show' : ''}`}>
+                                <Link to="/profile">
+                                    <i className="fas fa-user"></i>
+                                    Trang cá nhân
+                                </Link>
+                                <hr />
+                                <Link to="/login" onClick={handleLogout}>
+                                    <i className="fas fa-sign-out-alt"></i>
+                                    Đăng xuất
+                                </Link>
+                            </div>
+                        </div>
+                    )
                 ) : (
                     <>
                         <Link to="/login">Đăng nhập</Link>

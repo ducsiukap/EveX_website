@@ -1,0 +1,227 @@
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    /* align-items: start; */
+}
+
+.eventSection {
+    position: sticky;
+}
+
+.ticketSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.cardHeader {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.cardTitle {
+    margin: 0;
+    color: #1e293b;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.cardBody {
+    padding: 1.5rem;
+}
+
+.ticketTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ticketTable th,
+.ticketTable td {
+    padding: 0.75rem;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.ticketTable th {
+    color: #64748b;
+    font-weight: 500;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+}
+
+.ticketRow {
+    transition: background-color 0.2s;
+}
+
+.ticketRow:hover {
+    background-color: #f8fafc;
+}
+
+.emptyMessage {
+    color: #64748b;
+    padding: 2rem;
+    font-style: italic;
+}
+
+.ticketForm {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-right: 30px;
+}
+
+.formLabel {
+    color: #64748b;
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.formInput {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.formInput:focus {
+    outline: none;
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+}
+
+.formError {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.btnDelete {
+    padding: 0.5rem 1rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnDelete:hover {
+    background: #dc2626;
+}
+
+.btnAdd {
+    max-width: 50%;
+    justify-self: end;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    grid-column: 3;
+}
+
+.btnAdd:hover {
+    background: #246b44;
+}
+
+.actionBar {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btnCancel,
+.btnSave {
+    min-width: 120px;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btnCancel {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.btnCancel:hover {
+    background: #cbd5e1;
+}
+
+.btnSave {
+    background: #2e8b57;
+    color: white;
+}
+
+.btnSave:hover {
+    background: #246b44;
+}
+
+@media (max-width: 1200px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .eventSection {
+        position: static;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .cardHeader {
+        padding: 1rem;
+    }
+
+    .cardBody {
+        padding: 1rem;
+    }
+
+    .ticketTable {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .actionBar {
+        flex-direction: column;
+    }
+
+    .btnCancel,
+    .btnSave {
+        width: 100%;
+    }
+}

@@ -1,28 +1,60 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { 
+    faUser,
+    faCalendarAlt,
+    faSearch,
+    faTicket
+} from '@fortawesome/free-solid-svg-icons';
+
 import './Home.css';
+
+const menuItems = [
+    {
+        path: '/profile',
+        icon: faUser,
+        title: 'Quản lý tài khoản',
+        description: 'Quản lý thông tin tài khoản'
+    },
+    {
+        path: '/my-events',
+        icon: faCalendarAlt,
+        title: 'Sự kiện cá nhân',
+        description: 'Tạo và quản lý các sự kiện riêng của bạn'
+    },
+    {
+        path: '/explore',
+        icon: faSearch,
+        title: 'Tìm sự kiện',
+        description: 'Khám phá các sự kiện cộng đồng hấp dẫn'
+    },
+    {
+        path: '/orders',
+        icon: faTicket,
+        title: 'Vé đã mua',
+        description: 'Xem danh sách vé sự kiện bạn đã mua'
+    }
+];
 
 function PersonalHome() {
     return (
         <div className="home-container">
-            <h2>👋 Chào mừng bạn đến với EveX</h2>
             <div className="home-actions">
-                <Link to="/profile" className="home-card">
-                    <h3>👤 Quản lý tài khoản</h3>
-                    <p>Quản lý thông tin tài khoản</p>
-                </Link>
-                <Link to="/my-events" className="home-card">
-                    <h3>📅 Sự kiện cá nhân</h3>
-                    <p>Tạo và quản lý các sự kiện riêng của bạn.</p>
-                </Link>
-                <Link to="/explore" className="home-card">
-                    <h3>🔍 Tìm sự kiện</h3>
-                    <p>Khám phá các sự kiện cộng đồng hấp dẫn.</p>
-                </Link>
-                <Link to="/my-tickets" className="home-card">
-                    <h3>🎟️ Vé đã mua</h3>
-                    <p>Xem danh sách vé sự kiện bạn đã mua.</p>
-                </Link>
+                {menuItems.map((item, index) => (
+                    <Link 
+                        to={item.path} 
+                        className="home-card" 
+                        key={index}
+                    >
+                        <div className="card-icon">
+                            <FontAwesomeIcon icon={item.icon} />
+                        </div>
+                        <div className="card-content">
+                            <h3>{item.title}</h3>
+                            <p>{item.description}</p>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </div>
     );

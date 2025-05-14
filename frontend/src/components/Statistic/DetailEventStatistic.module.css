@@ -1,0 +1,103 @@
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.eventHeader {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.eventHeader:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.eventTitle {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2e8b57;
+    margin-bottom: 1rem;
+}
+
+.totalRevenue {
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.ticketTypeCard {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ticketTypeHeader {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.ticketTypeName {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.ticketTypeInfo {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+}
+
+.statsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.statsRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+
+.statsLabel {
+    color: #64748b;
+}
+
+.statsValue {
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.loadingState {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+    }
+    
+    .ticketTypeInfo {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .statsRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+}

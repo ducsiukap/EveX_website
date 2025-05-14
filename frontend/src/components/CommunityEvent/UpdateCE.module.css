@@ -1,0 +1,139 @@
+.editEventContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.editTitle {
+    margin: 0 0 2rem;
+    color: #1e293b;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputGroup label {
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.inputGroup textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+    outline: none;
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+}
+
+.dateTimeWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.radioOptionsGroup {
+    display: flex;
+    gap: 2rem;
+}
+
+.radioOption {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.radioOption input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    cursor: pointer;
+}
+
+.radioOption span {
+    color: #1e293b;
+    font-size: 0.875rem;
+}
+
+.validationError {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.saveButton {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.saveButton:hover {
+    background: #246b44;
+    transform: translateY(-1px);
+}
+
+.saveButton:active {
+    transform: translateY(0);
+}
+
+.saveButton:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.loadingState {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1rem;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .editEventContainer {
+        padding: 1rem;
+    }
+
+    .dateTimeWrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .radioOptionsGroup {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

@@ -51,9 +51,9 @@ form.register-form {
     margin-right: 6px;
 }
 
-button[type="submit"] {
+.submit-btn {
+    max-width: max-content;
     padding: 10px;
-    width: 100%;
     background-color: #007BFF;
     border: none;
     border-radius: 5px;
@@ -63,7 +63,7 @@ button[type="submit"] {
     transition: 0.3s;
 }
 
-button[type="submit"]:hover {
+.submit-btn:hover {
     background-color: #0056b3;
 }
 

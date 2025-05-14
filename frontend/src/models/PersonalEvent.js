@@ -5,13 +5,15 @@ export default class PersonalEvent {
     #location;
     #startTime;
     #endTime;
+    #user;
 
-    constructor(title, description, location, startTime, endTime) {
+    constructor(title, description, location, startTime, endTime, user) {
         this.#title = title;
         this.#description = description;
         this.#location = location;
         this.#startTime = startTime;
         this.#endTime = endTime;
+        this.#user = user;
     }
 
     get id() {
@@ -62,6 +64,10 @@ export default class PersonalEvent {
         this.#endTime = value;
     }
 
+    get user() { return this.#user; }
+
+    set user(user) { this.#user = user; }
+
     toJSON() {
         return {
             id: this.#id,
@@ -69,7 +75,8 @@ export default class PersonalEvent {
             description: this.#description,
             location: this.#location,
             startTime: this.#startTime,
-            endTime: this.#endTime
+            endTime: this.#endTime,
+            user: this.#user.toJSON()
         };
     }
 }

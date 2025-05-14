@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { getUserById } from "../../controllers/UserDAO";
+import { getUserById, updateUser } from "../../controllers/UserDAO";
 import { useForm } from 'react-hook-form';
 import './EditUser.css'; // Đã đổi sang CSS riêng
 
@@ -25,7 +25,7 @@ function EditUser() {
         }
         fetchData();
         setLoading(false);
-    }, [uid]);
+    }, [uid, reset]);
 
     if (error) return <Navigate to='/users' replace />;
     if (loading) return <div className="edit-user-container">Đang tải...</div>;
@@ -34,7 +34,7 @@ function EditUser() {
         const updatedUser = user;
         updatedUser.name = data.name;
 
-        if (updatedUser) {
+        if (updateUser(updatedUser)) {
             alert("Chỉnh sửa thông tin người dùng thành công");
             navigate('/users');
         } else {

@@ -1,0 +1,98 @@
+.viewContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.viewTitle {
+    font-size: 2rem;
+    color: #1e293b;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid seagreen;
+}
+
+.viewContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.infoGroup {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.infoIcon {
+    width: 24px;
+    height: 24px;
+    color: seagreen;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.infoContent {
+    flex: 1;
+}
+
+.infoContent label {
+    display: block;
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-bottom: 0.25rem;
+}
+
+.infoContent span,
+.infoContent p {
+    color: #1e293b;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.infoWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.descriptionGroup {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.descriptionGroup p {
+    white-space: pre-line;
+    margin-top: 0.5rem;
+}
+
+.ticketsWrapper {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+@media (max-width: 768px) {
+    .viewContainer {
+        padding: 1rem;
+        margin: 0;
+        border-radius: 0;
+    }
+
+    .viewTitle {
+        font-size: 1.5rem;
+    }
+
+    .infoWrapper {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .infoGroup {
+        gap: 0.75rem;
+    }
+}

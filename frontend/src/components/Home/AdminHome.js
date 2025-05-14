@@ -1,24 +1,58 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faTools,
+    faUsers,
+    faFlag,
+    faTicket
+} from '@fortawesome/free-solid-svg-icons';
 import './Home.css';
+
+const menuItems = [
+    {
+        path: '/users',
+        icon: faUsers,
+        title: 'Quản lý người dùng',
+        description: 'Kiểm soát tài khoản cá nhân và tổ chức'
+    },
+    {
+        path: '/reports',
+        icon: faFlag,
+        title: 'Sự kiện bị báo cáo',
+        description: 'Xử lý các sự kiện vi phạm'
+    },
+    {
+        path: '/vouchers',
+        icon: faTicket,
+        title: 'Quản lý voucher',
+        description: 'Tạo và phân phối mã giảm giá'
+    }
+];
 
 function AdminHome() {
     return (
         <div className="home-container">
-            <h2>🛠️ Trang quản trị hệ thống</h2>
+            <h2 className="home-title">
+                <FontAwesomeIcon icon={faTools} className="welcome-icon" />
+                Trang quản trị hệ thống
+            </h2>
             <div className="home-actions">
-                <Link to="/users" className="home-card">
-                    <h3>👥 Quản lý người dùng</h3>
-                    <p>Kiểm soát tài khoản cá nhân và tổ chức.</p>
-                </Link>
-                <Link to="/reported-events" className="home-card">
-                    <h3>🚨 Sự kiện bị báo cáo</h3>
-                    <p>Xử lý các sự kiện vi phạm.</p>
-                </Link>
-                <Link to="/manage-vouchers" className="home-card">
-                    <h3>🎁 Quản lý voucher</h3>
-                    <p>Tạo và phân phối mã giảm giá.</p>
-                </Link>
+                {menuItems.map((item, index) => (
+                    <Link 
+                        to={item.path} 
+                        className="home-card" 
+                        key={index}
+                    >
+                        <div className="card-icon">
+                            <FontAwesomeIcon icon={item.icon} />
+                        </div>
+                        <div className="card-content">
+                            <h3>{item.title}</h3>
+                            <p>{item.description}</p>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </div>
     );

@@ -1,0 +1,117 @@
+.formSection {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.formTitle {
+    color: #2c3e50;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid seagreen;
+}
+
+.form {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    gap: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.formGroup label {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.formGroup input,
+.formGroup textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.formGroup textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus {
+    outline: none;
+    border-color: seagreen;
+    box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.1);
+}
+
+.error {
+    color: #e74c3c;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.button {
+    max-width: 150px;
+    min-width: 150px;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.cancelBtn {
+    composes: button;
+    background-color: #64748b;
+    color: white;
+}
+
+.cancelBtn:hover {
+    background-color: #475569;
+    transform: translateY(-1px);
+}
+
+.cancelBtn:active {
+    transform: translateY(0);
+}
+
+.submitBtn {
+    composes: button;
+    background-color: seagreen;
+    color: white;
+}
+
+.submitBtn:hover {
+    background-color: #2e8b57;
+    transform: translateY(-1px);
+}
+
+.submitBtn:active {
+    transform: translateY(0);
+}
+
+.loading {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+}

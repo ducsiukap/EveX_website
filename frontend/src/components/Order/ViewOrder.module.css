@@ -1,0 +1,139 @@
+.orderContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    /* align-items: center; */
+}
+
+.orderSection {
+    /* min-width: 650px; */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.sectionHeader {
+    padding: 1rem 1.5rem;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+}
+
+.sectionTitle {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e293b;
+    flex: 1;
+}
+
+.ticketCount {
+    background: #2e8b57;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+}
+
+.sectionBody {
+    padding: 1.5rem;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.orderInfoItem {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.amount {
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.finalAmount {
+    color: #2e8b57;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.ticketList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ticketCard {
+    padding: 1rem;
+    background-color: mintcream;
+    border-radius: 6px;
+    border: 2px dashed #2e8b57;
+}
+
+.ticketHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* margin-bottom: 1rem; */
+}
+
+.ticketNumber {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.checkinStatus {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+}
+
+.checkedIn {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.notCheckedIn {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.ticketCode {
+    /* margin: 1.5rem 0; */
+    padding: 0.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2e8b57;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+.ticketPrice {
+    color: #2e8b57;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .orderContainer {
+        padding: 1rem;
+    }
+
+    .sectionHeader {
+        padding: 1rem;
+    }
+
+    .sectionBody {
+        padding: 1rem;
+    }
+}

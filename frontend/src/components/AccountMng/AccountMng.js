@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import User from "../../models/User";
 import { updateUser } from '../../controllers/UserDAO.js'
@@ -6,77 +6,91 @@ import './style.css';
 
 function AccountMng({ user, onSave }) {
     const navigate = useNavigate();
-    const [name, setName] = useState(user.name);
-    const [email, setEmail] = useState(user.email);
-    const [phone, setPhone] = useState(user.phone);
-    const [error, setError] = useState('');
+    const { register, handleSubmit, formState: { errors, isDirty }, setError: setFormError } = useForm({
+        defaultValues: {
+            name: user.name,
+            email: user.email,
+            phone: user.phone
+        }
+    });
 
-    const handleSave = (e) => {
-        e.preventDefault()
-        const u = new User(name, email, user.password, phone, user.status, user.role);
+    const onSubmit = (data) => {
+        const u = new User(data.name, data.email, user.password, data.phone, user.status, user.role);
         u.id = user.id;
-        if (updateUser(u)) { 
+        if (updateUser(u)) {
             onSave(u);
         } else {
-            setError('Email đã tồn tại!');
+            setFormError('email', {
+                type: 'manual',
+                message: 'Email đã tồn tại!'
+            });
         }
     }
 
     return (
-        <form className="account-form" onSubmit={(e) => handleSave(e)}>
-            <div className="form-group">
-                <label htmlFor="name">Name: </label>
-                <input
-                    type="text"
-                    id="name"
-                    value={name}
-                    required
-                    onChange={(e) => setName(e.target.value)}
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="email">Email: </label>
-                <input
-                    type="email"
-                    id="email"
-                    value={email}
-                    required
-                    onChange={(e) => setEmail(e.target.value)}
-                    onFocus={(e) => setError('')}
-                />
-                <label className="error">{error}</label>
-            </div>
-            <div className="form-group">
-                <label>Password: </label>
-                <input
-                    type="password"
-                    value="***********"
-                    required
-                    readOnly
-                />
-                <button
-                    type="button"
-                    className="change-password-btn"
-                    onClick={() => navigate('/profile/changepw')}
-                >
-                    Đổi mật khẩu
+        <div className="container" >
+            <h3 className="page-title">Quản lý tài khoản</h3>
+            <form className="account-form" onSubmit={handleSubmit(onSubmit)}>
+                <div className="form-group">
+                    <label htmlFor="name">Name: </label>
+                    <input
+                        type="text"
+                        id="name"
+                        {...register("name", { required: "Name is required" })}
+                    />
+                    {errors.name && <span className="error">{errors.name.message}</span>}
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email: </label>
+                    <input
+                        type="email"
+                        id="email"
+                        {...register("email", {
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Invalid email address"
+                            }
+                        })}
+                    />
+                    {errors.email && <span className="error">{errors.email.message}</span>}
+                </div>
+                <div className="form-group">
+                    <label>Password: </label>
+                    <input
+                        type="password"
+                        value="***********"
+                        readOnly
+                    />
+                    <button
+                        type="button"
+                        className="change-password-btn"
+                        onClick={() => navigate('/profile/changepw')}
+                    >
+                        Đổi mật khẩu
+                    </button>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="phone">Tel: </label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        {...register("phone", {
+                            required: "Phone number is required",
+                            pattern: {
+                                value: /^[0-9]+$/,
+                                message: "Please enter valid phone number"
+                            }
+                        })}
+                    />
+                    {errors.phone && <span className="error">{errors.phone.message}</span>}
+                </div>
+
+                <button type="submit" className="submit-btn" disabled={!isDirty}>
+                    Lưu thay đổi
                 </button>
-            </div>
-            <div className="form-group">
-                <label htmlFor="phone">Tel: </label>
-                <input
-                    type="tel"
-                    id="phone"
-                    value={phone}
-                    required
-                    onChange={(e) => setPhone(e.target.value)}
-                />
-            </div>
-
-            <button type="submit" className="submit-btn"
-                disabled={name === user.name && phone === user.phone && email === user.email}>Lưu thay đổi</button>
-        </form>
-
+            </form>
+        </div>
     )
 }
 

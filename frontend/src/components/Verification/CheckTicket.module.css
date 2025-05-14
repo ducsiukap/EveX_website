@@ -1,0 +1,155 @@
+.container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    gap: 10px;
+    /* align-items: stretch; */
+    /* height: 200px; */
+}
+
+.eventContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.title {
+    color: #2e8b57;
+    font-size: 2rem;
+    font-weight: 650;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.eventInfo {
+    display: flex;
+    gap: 6px;
+}
+
+.icon {
+    color: #2e8b57;
+    width: 0.8rem;
+    text-align: center;
+}
+
+
+.eventLocation, .eventTime {
+    color: #64748b;
+    font-size: 0.8rem;
+}
+
+.partition {
+    width: 2px;
+    background: #2e8b57;
+    margin: 0 15px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.inputWrapper label {
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.inputWrapper input {
+    width: fit-content;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 1.25rem;
+    font-family: monospace;
+    text-align: center;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+}
+
+.inputWrapper input:focus {
+    outline: none;
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.1);
+}
+
+.inputWrapper input::placeholder {
+    color: #94a3b8;
+    font-size: 0.7rem;
+    letter-spacing: normal;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.error {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.checkButton {
+    padding: 0.75rem 2rem;
+    background: #2e8b57;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.checkButton:hover {
+    background: #246b44;
+}
+
+.validTicket {
+    padding: 1rem;
+    background: #dcfce7;
+    color: #166534;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.invalidTicket {
+    padding: 1rem;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.loadingState {
+    text-align: center;
+    color: #64748b;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    .buttonWrapper {
+        margin-top: 1rem;
+    }
+}

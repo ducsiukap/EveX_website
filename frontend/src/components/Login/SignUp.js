@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { addUser } from '../../controllers/UserDAO';
 import User from '../../models/User';
-import './style.css';
+import styles from './SignUp.module.css'
 
 function SignUp({ isLoggedIn, onSubmit }) {
     const email = useRef('');
@@ -28,10 +28,11 @@ function SignUp({ isLoggedIn, onSubmit }) {
     };
 
     return (
-        <form onSubmit={handleSignUp} className='register-form'>
-            <label className='title'>Sign up</label>
-            <div className='input'>
-                <label htmlFor="name">Name:</label>
+        <form onSubmit={handleSignUp} className={styles.signupForm}>
+            <h1 className={styles.title}>Đăng ký</h1>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="name">Họ tên:</label>
                 <input
                     type="text"
                     id="name"
@@ -39,7 +40,8 @@ function SignUp({ isLoggedIn, onSubmit }) {
                     required
                 />
             </div>
-            <div className='input'>
+
+            <div className={styles.inputGroup}>
                 <label htmlFor="email">Email:</label>
                 <input
                     type="email"
@@ -48,8 +50,9 @@ function SignUp({ isLoggedIn, onSubmit }) {
                     required
                 />
             </div>
-            <div className='input'>
-                <label htmlFor="password">Password:</label>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="password">Mật khẩu:</label>
                 <input
                     type="password"
                     id="password"
@@ -57,8 +60,9 @@ function SignUp({ isLoggedIn, onSubmit }) {
                     required
                 />
             </div>
-            <div className='input'>
-                <label htmlFor="tel">Telephone:</label>
+
+            <div className={styles.inputGroup}>
+                <label htmlFor="tel">Số điện thoại:</label>
                 <input
                     type="tel"
                     id="tel"
@@ -66,33 +70,41 @@ function SignUp({ isLoggedIn, onSubmit }) {
                     required
                 />
             </div>
-            <div className='input'>
-                <label>Role:</label>
-                <label>
+
+            <div className={styles.radioGroup}>
+                <label>Vai trò:</label>
+                <label className={styles.radioLabel}>
                     <input
                         type="radio"
                         name="role"
                         value="P"
-                        checked={role==='P'}
+                        checked={role === 'P'}
                         onChange={(e) => setRole('P')}
                     />
                     Cá nhân
                 </label>
-                <label>
+                <label className={styles.radioLabel}>
                     <input
                         type="radio"
                         name="role"
                         value="O"
-                        checked = {role === 'O'}
+                        checked={role === 'O'}
                         onChange={(e) => setRole('O')}
                     />
                     Tổ chức
                 </label>
             </div>
-            {error && <span className='error-msg'>{error}<br /></span>}
-            <button type="submit">Sign Up</button>
-            <span className='error-msg'><br />Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link><br /></span>
-        </form>
+
+            {error && <div className={styles.errorMessage}>{error}</div>}
+
+            <button type="submit" className={styles.submitButton}>
+                Đăng ký
+            </button>
+
+            <div className={styles.loginLink}>
+                Bạn đã có tài khoản? <Link to="/login">Đăng nhập</Link>
+            </div>
+        </form >
     );
 }
 

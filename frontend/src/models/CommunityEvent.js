@@ -9,8 +9,9 @@ class CommunityEvent {
     #isFree;
     #createdAt;
     #ticketTypes;
+    #org;
 
-    constructor(title, description, location, startTime, endTime, status, isFree, createdAt, ticketTypes) {
+    constructor(title, description, location, startTime, endTime, status, isFree, createdAt, ticketTypes, org) {
         this.#title = title;
         this.#description = description;
         this.#location = location;
@@ -20,6 +21,7 @@ class CommunityEvent {
         this.#isFree = isFree;
         this.#createdAt = createdAt;
         this.#ticketTypes = ticketTypes;
+        this.#org = org;
     }
 
     get id() {
@@ -102,6 +104,9 @@ class CommunityEvent {
         this.#ticketTypes = value;
     }
 
+    set org(value) { this.#org = value; }
+    get org() { return this.#org; }
+
     toJSON() {
         return {
             id: this.#id,
@@ -113,7 +118,8 @@ class CommunityEvent {
             status: this.#status,
             isFree: this.#isFree,
             createdAt: this.#createdAt,
-            ticketTypes: this.#ticketTypes
+            ticketTypes: this.#ticketTypes,
+            org: this.#org.toJSON()
         };
     }
 }
