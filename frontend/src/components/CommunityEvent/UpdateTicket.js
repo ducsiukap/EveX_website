@@ -58,7 +58,7 @@ function AddTicket({ user }) {
     const handleSave = () => {
         const data = event;
         data.ticketTypes = tickets;
-        console.log(tickets);
+        // console.log(tickets);
         // console.log(newId);
         updateCE(data);
         navigate(`/my-events/view/${event.id}`);

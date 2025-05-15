@@ -95,6 +95,8 @@ const reports = [
     }
 ];
 
+let last_id = 410;
+
 const findAll = () => {
     const result = reports
         .filter((r) => r.status === 'pending')
@@ -113,6 +115,22 @@ const findAll = () => {
     return result;
 }
 
+const addReport = ({ body }) => {
+    ++last_id;
+    const query = {
+        id: last_id,
+        createdAt: new Date().toISOString(),
+        reason: body.reason,
+        status: "pending",
+        response: null,
+        userId: body.userId,
+        eventId: body.eventId
+    }
+
+    // console.log(query);
+    reports.push(query);
+}
+
 const resolvedReport = (id) => {
     for (let i = 0; i < reports.length; ++i) {
         if (reports[i].id === id) {
@@ -123,4 +141,4 @@ const resolvedReport = (id) => {
     return false;
 }
 
-export { findAll, resolvedReport };
+export { findAll, resolvedReport, addReport };

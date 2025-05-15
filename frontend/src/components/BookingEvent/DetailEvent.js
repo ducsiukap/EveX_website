@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { findOnePublicCE } from "../../controllers/CommunityEventDAO";
 import { findAllVoucher } from "../../controllers/VoucherDAO";
+import { addReport } from "../../controllers/ReportDAO";
 import ViewCEForm from "../ViewCEForm";
 import { useForm } from "react-hook-form";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import styles from './DetailEvent.module.css';
 
 function DetailEvent({ user }) {
@@ -15,6 +14,9 @@ function DetailEvent({ user }) {
     const { id } = useParams();
     const navigate = useNavigate();
     const [vouchers, setVouchers] = useState();
+    const [showPopup, setShowPopup] = useState(false)
+    const [reportError, setReportError] = useState();
+    const report = useRef();
 
     const { register, handleSubmit, setError, clearErrors, formState: { errors } } = useForm();
 
@@ -56,13 +58,33 @@ function DetailEvent({ user }) {
         })
     }
 
+    const handleReport = () => {
+        if (!report.current.value) {
+            setReportError('Vui lòng nhập lý do!');
+        } else {
+            // console.log(report.current.value);
+            const data = {
+                eventId: event.id,
+                userId: user.id,
+                reason: report.current.value
+            }
+
+            addReport({ body: data });
+            alert('Gửi báo cáo thành công!')
+            resetPopup();
+            setShowPopup(false);
+        }
+    }
+
+    const resetPopup = () => {
+        setReportError('');
+        report.current.value = '';
+    }
+
     if (!event) return <p className={styles.loadingState}>Loading...</p>
 
     return (
         <div className={styles.wrapper}>
-            <div onClick={() => navigate(-1)} className={styles.backButton}>
-                <FontAwesomeIcon icon={faArrowLeft} /> Quay lại
-            </div>
             <div className={styles.container}>
                 <div><ViewCEForm event={event} /></div>
 
@@ -117,6 +139,27 @@ function DetailEvent({ user }) {
                     </form>
                 }
             </div>
+            <div className={event.isFree ? styles.buttonGroupCenter : styles.buttonGroup}>
+                <button onClick={() => navigate(-1)} className={styles.backButton}>Quay lại</button>
+                <button onClick={() => setShowPopup(true)} className={styles.reportButton}>Báo cáo sự kiện</button>
+            </div>
+            {showPopup && <div className={styles.overlay}></div>}
+            {showPopup && <div className={styles.popupDialog}>
+                <div className={styles.inputGroup}>
+                    <label htmlFor="report-reason">Nhập lý do báo cáo: </label>
+                    <textarea
+                        id="report-reason"
+                        ref={report}
+                        onChange={() => setReportError('')}
+                        className={styles.reportReason}
+                    />
+                    {reportError && <span className={styles.error}>{reportError}</span>}
+                </div>
+                <div className={styles.buttonGroupCenter}>
+                    <button className={styles.backButton} onClick={() => { setShowPopup(false); resetPopup(); }}>Hủy</button>
+                    <button className={styles.reportButton} onClick={() => handleReport()}>Gửi báo cáo</button>
+                </div>
+            </div>}
         </div>
     );
 }

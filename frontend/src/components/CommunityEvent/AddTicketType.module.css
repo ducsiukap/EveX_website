@@ -134,7 +134,9 @@
 }
 
 .btnAdd {
-    max-width: 50%;
+    /* max-width: 100%; */
+    width: 50%;
+    background: #246b44;
     justify-self: end;
     color: white;
     border: none;
@@ -143,11 +145,9 @@
     cursor: pointer;
     transition: all 0.2s;
     grid-column: 3;
+    padding: 5px 5px;
 }
 
-.btnAdd:hover {
-    background: #246b44;
-}
 
 .actionBar {
     grid-column: 1 / -1;

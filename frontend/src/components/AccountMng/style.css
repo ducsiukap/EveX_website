@@ -13,6 +13,8 @@
 }
 .account-form {
     max-width: 400px;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto;
     padding: 24px;
     background-color: #f9f9f9;
@@ -47,7 +49,7 @@
 .change-password-btn {
     margin-top: 8px;
     padding: 8px 12px;
-    font-size: 14px;
+    font-size: 1rem;
     background-color: seagreen;
     color: white;
     border: none;
@@ -60,14 +62,16 @@
 }
 
 .submit-btn {
+    width: fit-content;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 1rem;
     background-color: seagreen;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    align-self: center;
 }
 
 .submit-btn:disabled {

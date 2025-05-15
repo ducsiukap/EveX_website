@@ -1,6 +1,6 @@
 import CommunityEvent from '../models/CommunityEvent.js';
 import { getUserById } from './UserDAO.js';
-import { findTicketTypeByEventId, addTicketType, deleteTicketTypeByEventId, updateTicketType } from './TicketTypeDAO.js'
+import { findTicketTypeByEventId, addTicketType, deleteTicketTypeByEventId, updateTicketType, findTicketTypeById } from './TicketTypeDAO.js'
 
 const events = [
     {
@@ -457,7 +457,10 @@ const updateCE = event => {
         }
     } else {
         if (isFree === 0) {
-            event.ticketTypes.forEach(item => addTicketType({ ...item, event_id: found.id }));
+            event.ticketTypes.forEach(item => {
+                if (!item.id || !findTicketTypeById(item.id))
+                    addTicketType({ ...item, event_id: found.id })
+            });
         }
     }
 
