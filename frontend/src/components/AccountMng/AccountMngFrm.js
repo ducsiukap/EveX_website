@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import User from "../../models/User";
+import User from "../../models/User.js";
 import { updateUser } from '../../controllers/UserDAO.js'
 import './style.css';
 
