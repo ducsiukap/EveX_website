@@ -492,23 +492,29 @@ const findAllEventStatistic = (userId) => {
 
     const result = userEvent.map(event => {
         const ticketTypes = event.ticketTypes;
-        let bookingRate, totalRevenue, checkinRate;
+        let bookingRate, totalRevenue, checkinRate, totalTickets;
         bookingRate = 0;
         totalRevenue = 0;
         checkinRate = 0;
+        totalTickets = 0;
+
         ticketTypes.forEach((ticketType) => {
+            totalTickets += ticketType.quantity;
+
             let checkin = 0;
             const tickets = ticketType.tickets;
+
+            totalRevenue += tickets.length * ticketType.price;
             tickets.forEach(ticket => {
-                totalRevenue += ticket.price;
                 checkin += (ticket.checkedAt ? 1 : 0);
                 // console.log(ticket.checkedAt);
             })
-            checkinRate += (checkin / tickets.length) || 0;
-            bookingRate += tickets.length / ticketType.quantity;
-        })
-        bookingRate /= ticketTypes.length;
-        checkinRate /= ticketTypes.length;
+            checkinRate += checkin;
+            bookingRate += tickets.length;
+        });
+
+        checkinRate /= bookingRate;
+        bookingRate /= totalTickets;
 
         return {
             event: {

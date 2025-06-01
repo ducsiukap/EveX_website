@@ -38,11 +38,11 @@ function GeneralStatistic({ user }) {
                         </div>
                         <div className={styles.statisticItem}>
                             <FontAwesomeIcon icon={faCartPlus} className={styles.statisticIcon} />
-                            <span className={styles.statisticValue}>{statistic.bookingRate.toFixed(2)}%</span>
+                            <span className={styles.statisticValue}>{(statistic.bookingRate*100).toFixed(2)}%</span>
                         </div>
                         <div className={styles.statisticItem}>
                             <FontAwesomeIcon icon={faPersonCircleCheck} className={styles.statisticIcon} />
-                            <span className={styles.statisticValue}>{statistic.checkinRate.toFixed(2)}%</span>
+                            <span className={styles.statisticValue}>{(statistic.checkinRate*100).toFixed(2)}%</span>
                         </div>
                     </div>
                 </div>
